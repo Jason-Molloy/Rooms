@@ -7,7 +7,8 @@ namespace rooms
   {
     static void Main(string[] args)
     {
-
+      GameService gs = new GameService();
+      gs.StartGame();
     }
   }
 }

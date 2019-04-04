@@ -5,6 +5,17 @@ namespace Rooms.Project.Models
 {
   public class Item : IItem
   {
+    public string Name { get; set; }
+    public string Description { get; set; }
 
+    public void AddItem(Room room, IItem item)
+    {
+
+    }
+    public Item(string name, string desc)
+    {
+      Name = name;
+      Description = desc;
+    }
   }
 }
