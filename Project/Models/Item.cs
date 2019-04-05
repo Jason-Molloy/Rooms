@@ -8,10 +8,7 @@ namespace Rooms.Project.Models
     public string Name { get; set; }
     public string Description { get; set; }
 
-    public void AddItem(Room room, IItem item)
-    {
 
-    }
     public Item(string name, string desc)
     {
       Name = name;

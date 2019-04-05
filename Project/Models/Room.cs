@@ -9,10 +9,14 @@ namespace Rooms.Project.Models
     public string Name { get; set; }
     public string Description { get; set; }
     public List<Item> Items { get; set; }
-    public Dictionary<string, IRoom> Exits { get; set; }
+    public Dictionary<Direction, IRoom> Exits { get; set; }
     public void AddExit(Direction direction, IRoom dest)
     {
       Exits.Add(direction, dest);
+    }
+    public void AddItem(Item item)
+    {
+      Items.Add(item);
     }
     public IRoom UseExit(Direction dir)
     {

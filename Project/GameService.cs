@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Rooms.Project.Interfaces;
 using Rooms.Project.Models;
@@ -6,11 +7,15 @@ namespace Rooms.Project
 {
   public class GameService : IGameService
   {
-    Room IGameService.CurrentRoom { get; set; }
-    Player IGameService.CurrentPlayer { get; set; }
+    public Room CurrentRoom { get; set; }
+    public Player CurrentPlayer { get; set; }
+    public bool Running { get; set; }
 
     public void GetUserInput()
     {
+      Console.WriteLine("What would you like to do?");
+      string decision = Console.ReadLine();
+      //switch statement that runs appropriate below method
       throw new System.NotImplementedException();
     }
 
@@ -21,22 +26,22 @@ namespace Rooms.Project
 
     public void Help()
     {
-      throw new System.NotImplementedException();
+      Console.WriteLine("Use GO with a direction to navigate the game.@/Use TAKE to add a usable item to your inventory.@/Use LOOK to get a description of your surroundings.@/Use USE to use an item from your inventory.@/Use QUIT to stop playing the game.");
     }
 
     public void Inventory()
     {
-      throw new System.NotImplementedException();
+      System.Console.WriteLine();
     }
 
     public void Look()
     {
-      throw new System.NotImplementedException();
+      Console.WriteLine($"{CurrentRoom.Name}: {CurrentRoom.Description}");
     }
 
     public void Quit()
     {
-      throw new System.NotImplementedException();
+      Running = false;
     }
 
     public void Reset()
@@ -44,7 +49,7 @@ namespace Rooms.Project
       throw new System.NotImplementedException();
     }
 
-    public void setup()
+    public void Setup()
     {
       //create all rooms
       Room rooftop = new Room("Rooftop", "You are standing on a large Snowy rooftop with no recollection of how you got here. It's slippery. To the SOUTH is a wide brick chimney. To the EAST and WEST are the sloped eaves of the roof. To the NORTH is cold, thin air, about 23 feet above ground level.");
@@ -75,26 +80,42 @@ namespace Rooms.Project
       kitchen.AddItem(cookie);
       kitchen.AddItem(sandwich);
 
+      CurrentRoom = rooftop;
+      Running = true;
     }
 
     public void StartGame()
     {
-      throw new System.NotImplementedException();
+      Setup();
+      while (Running)
+      {
+        Console.WriteLine("${CurrentLocation.Name}: {CurrentLocation.Description}");
+      }
     }
 
     public void TakeItem(string itemName)
     {
-      throw new System.NotImplementedException();
+      Item item = CurrentRoom.Items.Find(i => i.Name.ToLower() == itemName.ToLower());
+      if (item != null)
+      {
+        CurrentPlayer.Inventory.Add(item);
+        CurrentRoom.Items.Remove(item);
+      }
+      else
+      {
+        System.Console.WriteLine("That item may not be taken, here.");
+      }
     }
 
     public void UseItem(string itemName)
     {
-      throw new System.NotImplementedException();
+      Item item = CurrentPlayer.Inventory.Find(i => i.Name.ToLower() == itemName.ToLower());
+      if (item != null)
+      {
+        CurrentPlayer.Inventory.Remove(item);
+      }
+      System.Console.WriteLine("That item may not be used, here.");
     }
 
-    private void initialize()
-    {
-
-    }
   }
 }

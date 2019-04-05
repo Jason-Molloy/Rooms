@@ -9,7 +9,7 @@ namespace Rooms.Project.Interfaces
     Player CurrentPlayer { get; set; }
 
     //Initializes the game, creates rooms, their exits and add items to rooms
-    void setup();
+    void Setup();
 
     //restarts the game
     void Reset();
