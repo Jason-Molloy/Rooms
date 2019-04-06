@@ -13,25 +13,62 @@ namespace Rooms.Project
 
     public void GetUserInput()
     {
-      Console.WriteLine("What would you like to do?");
-      string decision = Console.ReadLine();
+      //ask player what to do - run appropriate function accordingly
+      string input = Console.ReadLine().ToLower();
+      string[] inputArr = input.Split(" ");
+      string directive = inputArr[0];
+      string selection = "";
+      if (inputArr.Length > 1)
+      {
+        selection = inputArr[1];
+      }
       //switch statement that runs appropriate below method
+      switch (directive)
+      {
+        case "quit":
+          Quit();
+          break;
+        case "look":
+          Look();
+          break;
+        case "inventory":
+          Inventory();
+          break;
+        case "help":
+          Help();
+          break;
+        case "go":
+          Go(selection);
+          break;
+        case "take":
+          TakeItem(selection);
+          break;
+        case "use":
+          UseItem(selection);
+          break;
+        default:
+          Console.WriteLine("Not sure I understand... @/What would you like to do?");
+          break;
+      }
       throw new System.NotImplementedException();
     }
 
     public void Go(string direction)
-    {
+    {//split 'go' from the indicated direction
+     //check currentRoom for available exits, 
+     //if an exit exists in the indicated direction
+     //currentRoom = the room at that direction
       throw new System.NotImplementedException();
     }
 
     public void Help()
     {
-      Console.WriteLine("Use GO with a direction to navigate the game.@/Use TAKE to add a usable item to your inventory.@/Use LOOK to get a description of your surroundings.@/Use USE to use an item from your inventory.@/Use QUIT to stop playing the game.");
+      Console.WriteLine("Use GO with a direction to navigate the game.@/Use TAKE to add a usable item to your inventory.@/Use LOOK to get a description of your surroundings.@/Use INVENTORY to view your current inventory.@/Use USE to use an item from your inventory.@/Use QUIT to stop playing the game.");
     }
 
     public void Inventory()
     {
-      System.Console.WriteLine();
+      System.Console.WriteLine(${ CurrentPlayer.Inventory});
     }
 
     public void Look()
