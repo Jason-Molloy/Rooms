@@ -29,7 +29,7 @@ namespace Rooms.Project.Models
     }
     public Room(string name, string desc)
     {
-      Exits = new Dictionary<string, IRoom>();
+      Exits = new Dictionary<Direction, IRoom>();
       Items = new List<Item>();
       Name = name;
       Description = desc;
