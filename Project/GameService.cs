@@ -17,7 +17,7 @@ namespace Rooms.Project
       Setup();
       while (Running == true)
       {
-        System.Console.WriteLine("\nPress any button to continue");
+        System.Console.WriteLine("\nPress ENTER to continue");
         Console.ReadKey();
         Console.Clear();
         Console.WriteLine($"{CurrentRoom.Name}: {CurrentRoom.Description}");
