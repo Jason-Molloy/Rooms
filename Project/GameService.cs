@@ -139,7 +139,7 @@ namespace Rooms.Project
 
     public void Help()//should be complete
     {
-      Console.WriteLine("After any action, the console will ask you to hit enter, again, \nallowing you to read (suffer) the consequeses of your actions.\nUse GO with a direction to navigate the game.\nUse TAKE to add a usable item to your inventory.\nUse LOOK to get a description of your surroundings.\nUse INVENTORY to view your current inventory.\nUse USE to use an item from your inventory.\nUse RESET to start over.\nUse QUIT to stop playing the game.");
+      Console.WriteLine("After any action, the console will ask you to hit enter, again, \nallowing you to read (suffer) the consequeses of your actions, if any.\nUse GO with a direction to navigate the game.\nUse TAKE to add a usable item to your inventory.\nUse LOOK to get a description of your surroundings.\nUse INVENTORY to view your current inventory.\nUse USE to use an item from your inventory.\nUse RESET to start over.\nUse QUIT to stop playing the game.");
     }
 
     public void Reset()//should be complete
