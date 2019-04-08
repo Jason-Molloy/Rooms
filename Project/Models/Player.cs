@@ -8,8 +8,8 @@ namespace Rooms.Project.Models
     public string PlayerName { get; set; }
     public List<Item> Inventory { get; set; }
 
-    // bool Cookies;
-    // bool Stockings;
+    public bool Cookies = false;
+    public bool Stockings = false;
     public Player(string name)
     {
       PlayerName = name;

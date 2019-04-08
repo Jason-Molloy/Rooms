@@ -17,8 +17,8 @@ namespace Rooms.Project
       Setup();
       while (Running == true)
       {
-        Console.WriteLine("${CurrentLocation.Name}: {CurrentLocation.Description}");
-        Console.WriteLine("What would you like to do?@/Type 'help' for assistance");
+        Console.WriteLine($"{CurrentRoom.Name}: {CurrentRoom.Description}");
+        Console.WriteLine("What would you like to do?\nType 'help' for assistance");
         GetUserInput();
       }
     }
@@ -36,8 +36,8 @@ namespace Rooms.Project
 
       //items
       Item goodies = new Item("Goodies", "Having an intuition that the oversized socks belong to deserving children, you fish a few goodies from the sack and fill those stockings that are hung (with such care) by the chimney.");
-      Item cookie = new Item("A Cookie", "The cookies are irresistible. You take one and are surprised by the refinement of flavor coming from a morsel baked by so young an artisan (make sure this child gets some goodies). You help yourself to the milk (yes, it's milk - who pours a glass of cream anymore, anyway. Such wishful thinking..) and are thoroughly satisfied.");
-      Item sandwich = new Item("A Sandwich", "As you begin to wrap your hands around the giant sandwich and draw it to your salivating mouth, a crazed man bursts in from the living room (the slight rustling of the paper must have woken him) shouting, 'Who's eating my Christmas sandwich!?!?!' realizing who you are, he stops cold and his mouth drops wide open. You've been discovered, Santa Claus. Christmas is ruined, Nice job. GAME OVER!!!");
+      Item cookie = new Item("Cookies", "The cookies are irresistible. You take one and are surprised by the refinement of flavor coming from a morsel baked by so young an artisan (make sure this child gets some goodies). You help yourself to the milk (yes, it's milk - who pours a glass of cream anymore, anyway. Such wishful thinking..) and are thoroughly satisfied. Your full belly reminds you of the magic whistle in your pocket.");
+      Item sandwich = new Item("Sandwich", "As you begin to wrap your hands around the giant sandwich and draw it to your salivating mouth, a crazed man bursts in from the living room (the slight rustling of the paper must have woken him) shouting, 'Who's eating my Christmas sandwich!?!?!' realizing who you are, he stops cold and his mouth drops wide open. You've been discovered, Santa Claus. Christmas is ruined, Nice job. GAME OVER!!!");
       Item whistle = new Item("Whistle", "On the roof, again, with a full belly and your work here complete, you blow the whistle and almost at once your sleigh and reindeer are here to carry you to your next stop. You ride off into the night shouting 'Ho, Ho, Ho' and 'Merry Christmas to all' and other such jolly things. Christmas can continue... You WIN!!!");
 
       //room relationships
@@ -55,21 +55,26 @@ namespace Rooms.Project
       kitchen.AddItem(cookie);
       kitchen.AddItem(sandwich);
 
+      CurrentPlayer = new Player("Santa");
       CurrentRoom = rooftop;
       Running = true;
+
     }
 
     public void GetUserInput()//should be complete
     {
       //ask player what to do - run appropriate function accordingly
-      string input = Console.ReadLine().ToLower();
-      string[] inputArr = input.Split(" ");
+      string[] inputArr = Console.ReadLine().ToLower().Split(" ");
       string directive = inputArr[0];
       string selection = "";
       if (inputArr.Length > 1)
       {
         selection = inputArr[1];
       }
+      // if(directive == "go")
+      // {
+      //   selection = Direction
+      // }
       //switch statement that runs appropriate below method
       switch (directive)
       {
@@ -92,6 +97,9 @@ namespace Rooms.Project
           Go(selection);
           break;
         case "take":
+          TakeItem(selection);
+          break;
+        case "get":
           TakeItem(selection);
           break;
         case "use":
@@ -136,14 +144,24 @@ namespace Rooms.Project
       Running = false;
       Setup();
     }
-
-    public void Go(string direction)//incomplete
+    public void Go(string selection)//incomplete
     {//check currentRoom for available exits, 
      //if an exit exists in the indicated direction
      //currentRoom = the room at that direction
-      CurrentRoom = (Room)CurrentRoom.UseExit(direction)
-
-
+      if (!Enum.TryParse(selection, out Direction direction))
+      {
+        System.Console.WriteLine("Please try again..");
+        return;
+      }
+      if (CurrentRoom.Exits.ContainsKey(direction))
+      {
+        CurrentRoom = (Room)CurrentRoom.Exits[direction];
+      }
+      if (CurrentRoom.Name == "Roof Side" || CurrentRoom.Name == "Hallway" || CurrentRoom.Name == "Outside" || CurrentRoom.Name == "Thin Air")
+      {
+        System.Console.WriteLine($"{CurrentRoom.Description}");
+        EndGame();
+      }
 
     }
 
@@ -157,6 +175,7 @@ namespace Rooms.Project
       }
       else if (item != null)
       {
+        Console.WriteLine("The item has been added to your inventory");
         CurrentPlayer.Inventory.Add(item);
         CurrentRoom.Items.Remove(item);
       }
@@ -174,24 +193,29 @@ namespace Rooms.Project
         if (itemName == "goodies" && CurrentRoom.Name.ToString() == "Living Room")
         {
           Console.WriteLine($"{item.Description}");
+          CurrentPlayer.Stockings = true;
         }
-        else if (itemName == "cookie" && CurrentRoom.Name.ToString() == "Kitchen")
+        else if (itemName == "cookies" && CurrentRoom.Name.ToString() == "Kitchen")
         {
           Console.WriteLine($"{item.Description}");
+          CurrentPlayer.Cookies = true;
         }
-        else if (itemName == "sandwich" && CurrentRoom.Name.ToString() == "Kitchen")
-        {
-          Console.WriteLine($"{item.Description}");
-          EndGame();
-        }
-        else if (itemName == "sleigh" && CurrentRoom.Name.ToString() == "Rooftop")
+        else if (itemName == "whistle" && CurrentRoom.Name.ToString() == "Rooftop")
         {
           Console.WriteLine($"{item.Description}");
           EndGame();
         }
         CurrentPlayer.Inventory.Remove(item);
       }
-      System.Console.WriteLine("That item may not be used, here.");
+      else
+      {
+        System.Console.WriteLine("That item may not be used, here.");
+      }
+      if (CurrentPlayer.Cookies && CurrentPlayer.Stockings)
+      {
+        CurrentPlayer.Inventory.Add(new Item("Whistle", "On the roof, again, with a full belly and your work here complete, you blow the whistle and almost at once your sleigh and reindeer are here to carry you to your next stop. You ride off into the night shouting 'Ho, Ho, Ho' and 'Merry Christmas to all' and other such jolly things. Christmas can continue... You WIN!!!"));
+        System.Console.WriteLine("Your full belly and good deeds remind you of a magic whistle in your back pocket. You may want to check your inventory...");
+      }
     }
 
     public void EndGame()//should be complete
