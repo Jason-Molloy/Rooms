@@ -137,14 +137,13 @@ namespace Rooms.Project
       Setup();
     }
 
-    public void Go(string direction)//incomplete, need to finish
+    public void Go(string direction)//incomplete
     {//check currentRoom for available exits, 
      //if an exit exists in the indicated direction
      //currentRoom = the room at that direction
-      if (CurrentRoom.Exits.ContainsKey)
-      {
-        CurrentRoom = CurrentRoom.Exits[direction]
-        }
+      CurrentRoom = (Room)CurrentRoom.UseExit(direction)
+
+
 
     }
 
