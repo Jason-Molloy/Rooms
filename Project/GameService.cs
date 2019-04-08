@@ -10,13 +10,16 @@ namespace Rooms.Project
     public Room CurrentRoom { get; set; }
     public Player CurrentPlayer { get; set; }
     public bool Running { get; set; }
-
+    public bool DisplayMessage = false;
     public void StartGame()//should be complete
     {
       Console.Clear();
       Setup();
       while (Running == true)
       {
+        System.Console.WriteLine("\nPress any button to continue");
+        Console.ReadKey();
+        Console.Clear();
         Console.WriteLine($"{CurrentRoom.Name}: {CurrentRoom.Description}");
         Console.WriteLine("What would you like to do?\nType 'help' for assistance");
         GetUserInput();
@@ -26,19 +29,19 @@ namespace Rooms.Project
     public void Setup()//should be complete
     {
       //create all rooms
-      Room rooftop = new Room("Rooftop", "You are standing on a large Snowy rooftop with no recollection of how you got here. It's slippery. To the SOUTH is a wide brick chimney. To the EAST and WEST are the sloped eaves of the roof. To the NORTH is cold, thin air, about 23 feet above ground level.");
-      Room livingRoom = new Room("Living Room", "You are in a living room. You realize that, though it's dark, you can see by the light of a string of electric lights, loosely wrapped around a tree in the corner of the nicely decorated room. There are some stockings hung by the chimney with care (actually on the mantle). Besides the festive decorations and tree, are some wrapped packages under the tree, and a large red sack (could you have dropped it on your way down?) filled with some goodies. Along the NORTH wall is a fireplace. There is a bit of light coming from under a door to the EAST and a dark, foreboding and open hallway to the SOUTH.");
-      Room kitchen = new Room("Kitchen", "Opening the door, you can see you are in a kitchen, but only by a small light above the stove. It looks like a normal kitchen for a normal family. Other than the usual kitchen apparati, there is a note on the table, along with two plates and a glass of opaque, white liquid (milk, if you had to guess, cream if you're lucky. But not too much - pants are getting tight). On one of the plates is a giant, delicious looking sandwich - this thing would make Dagwood blush - wrapped in paper. The other, nearer the milk, is filled with an array of homemade sugar cookies - decorated by a child's hands. Also written in a child's hand is a note: 'Deer Santa, Hop yer having a nic crismas. plees leev some good presents for Randy (no costooms). I just want a Red Ryder BB gun. sory for being bad and not speling wurds rite. Love, Ralphie and Randy.' There is a door to the EAST that appears to lead out of the house. There is also a door to the NORTH. The only other exit is to the WEST.");
-      Room hallway = new Room("Hallway", "As you make your way down the dark hallway the light from the living room quickly fades. In the dark, you trip and fall. Someone opens an adjacent door and a small figure can be seen in sillouette. Before you can realize it she says your name in great surprise and begins crying (Why? She's just a kid and you scared her). Looking down, you realize, suddenly, you are Santa Claus! You have been discovered and ruined Christmas. Up til now you've had a perfect track record. Nice job. GAME OVER");
-      Room outside = new Room("Outside", "The door is locked, but from the inside. You unlock the door and step out into someone's (the homeowner's) backyard. As you do you alarm the family dog who begins persistently barking. As you are trying to shush the dog, you realize that several neighbors have woken and rushed out with superhuman speed. They are now taking pictures of you, Santa Claus, that will inevitably wind up on the front page of a couple dozen publications, tomorrow. You have been discovered and ruined Christmas. Up til now you've had a perfect track record. Nice job. GAME OVER");
-      Room roofSide = new Room("Roof Side", "As you begin to explore the totally vacant roof (Why?), you loose your footing and begin sliding toward the edge. Unable to stop yourself, you tangle in the lights hung from teh roof and inadvertently suspend yourself, completely stuck, 9 inches from the ground. There is no way to deliver presents this year and you've ruined Christmas, Santa Claus. Up til now you've had a perfect track record. Nice job. GAME OVER");
-      Room thinAir = new Room("Thin Air", "Really? Did you think you could fly without your sleigh? You fall approximately 23 feet and land hard on your back. You are definitely not getting up soon and hope someone can call for an ambulance. You must be too old for this stuff. There is no way to deliver presents this year and you've ruined Christmas, Santa Claus. Up til now you've had a perfect track record. Nice job. GAME OVER");
+      Room rooftop = new Room("Rooftop", "You are standing on a large Snowy rooftop with no recollection of how you got here. It's slippery. \nTo the SOUTH is a wide brick chimney. \nTo the EAST and WEST are the sloped eaves of the roof. \nTo the NORTH is cold, thin air, about 23 feet above ground level.");
+      Room livingRoom = new Room("Living Room", "You are in a living room. \nYou realize that, though it's dark, you can see by the light of a string of electric lights, \nloosely wrapped around a tree in the corner of the nicely decorated room. \nThere are some stockings hung by the chimney with care (actually on the mantle). \nBesides the festive decorations and tree, are some wrapped packages under the tree, \nand a large red sack (could you have dropped it on your way down?) filled with some GOODIES. \nAlong the NORTH wall is a fireplace. \nThere is a bit of light coming from under a door to the EAST \nand a dark, foreboding and open hallway to the SOUTH.");
+      Room kitchen = new Room("Kitchen", "Opening the door, you can see you are in a kitchen, but only by a small light above the stove. \nIt looks like a normal kitchen for a normal family. Other than the usual kitchen apparati, there is a note on the table, along with two plates \nand a glass of opaque, white liquid (milk, if you had to guess, cream if you're lucky. But not too much - pants are getting tight). \nOn one of the plates is a giant, delicious looking SANDWICH - this thing would make Dagwood blush - wrapped in paper. \nThe other, nearer the milk, is filled with an array of homemade sugar COOKIES - decorated by a child's hands. \nAlso written in a child's hand is a note: \n'Deer Santa, Hop yer having a nic crismas. plees leev some good presents for Randy (no costooms). \nI just want a Red Ryder BB gun. sory for being bad and not speling wurds rite. \nLove, Ralphie and Randy.' \nThere is a door to the EAST that appears to lead out of the house. \nThere is also a door to the NORTH. \nThe only other exit is to the WEST.");
+      Room hallway = new Room("Hallway", "As you make your way down the dark hallway the light from the living room quickly fades. \nIn the dark, you trip and fall. Someone opens an adjacent door and a small figure can be seen in sillouette. \nBefore you can realize it she says your name in great surprise and begins crying (Why? She's just a kid and you scared her). \nLooking down, you realize, suddenly, you are Santa Claus! \nYou have been discovered and ruined Christmas. Up til now you've had a perfect track record. Nice job. \nGAME OVER");
+      Room outside = new Room("Outside", "The door is locked, but from the inside. \nYou unlock the door and step out into someone's (the homeowner's) backyard. \nAs you do you alarm the family dog who begins persistently barking. \nAs you are trying to shush the dog, you realize that several neighbors have woken and rushed out with superhuman speed. \nThey are now taking pictures of you, Santa Claus, that will inevitably wind up on the front page of a couple dozen publications, tomorrow. \nYou have been discovered and ruined Christmas. Up til now you've had a perfect track record. Nice job. \nGAME OVER");
+      Room roofSide = new Room("Roof Side", "As you begin to explore the totally vacant roof (Why?), you loose your footing and begin sliding toward the edge. \nUnable to stop yourself, you tangle in the lights hung from the roof and inadvertently suspend yourself, \ncompletely stuck, 9 inches from the ground. \nThere is no way to deliver presents this year and you've ruined Christmas, Santa Claus. \nUp til now you've had a perfect track record. Nice job. \nGAME OVER");
+      Room thinAir = new Room("Thin Air", "Really? Did you think you could fly without your sleigh? \nYou fall approximately 23 feet and land hard on your back. \nYou are definitely not getting up soon and hope someone can call for an ambulance. \nYou must be too old for this stuff. \nThere is no way to deliver presents this year and you've ruined Christmas, Santa Claus. \nUp til now you've had a perfect track record. Nice job. \nGAME OVER");
 
       //items
-      Item goodies = new Item("Goodies", "Having an intuition that the oversized socks belong to deserving children, you fish a few goodies from the sack and fill those stockings that are hung (with such care) by the chimney.");
-      Item cookie = new Item("Cookies", "The cookies are irresistible. You take one and are surprised by the refinement of flavor coming from a morsel baked by so young an artisan (make sure this child gets some goodies). You help yourself to the milk (yes, it's milk - who pours a glass of cream anymore, anyway. Such wishful thinking..) and are thoroughly satisfied. Your full belly reminds you of the magic whistle in your pocket.");
-      Item sandwich = new Item("Sandwich", "As you begin to wrap your hands around the giant sandwich and draw it to your salivating mouth, a crazed man bursts in from the living room (the slight rustling of the paper must have woken him) shouting, 'Who's eating my Christmas sandwich!?!?!' realizing who you are, he stops cold and his mouth drops wide open. You've been discovered, Santa Claus. Christmas is ruined, Nice job. GAME OVER!!!");
-      Item whistle = new Item("Whistle", "On the roof, again, with a full belly and your work here complete, you blow the whistle and almost at once your sleigh and reindeer are here to carry you to your next stop. You ride off into the night shouting 'Ho, Ho, Ho' and 'Merry Christmas to all' and other such jolly things. Christmas can continue... You WIN!!!");
+      Item goodies = new Item("Goodies", "Having an intuition that the oversized socks belong to deserving children, \nyou fish a few goodies from the sack and fill those stockings that are hung (with such care) by the chimney.");
+      Item cookie = new Item("Cookies", "The cookies are irresistible. \nYou take one and are surprised by the refinement of flavor coming from a morsel baked by so young an artisan \n(make sure this child gets some goodies). \nYou help yourself to the milk (yes, it's milk - who pours a glass of cream anymore, anyway? Such wishful thinking..) \nand are thoroughly satisfied.");
+      Item sandwich = new Item("Sandwich", "As you begin to wrap your hands around the giant sandwich and draw it to your salivating mouth, \na crazed man bursts in from the living room (the slight rustling of the paper must have woken him) \nshouting, 'Who's eating my Christmas sandwich!?!?!' \nrealizing who you are, he stops cold and his mouth drops wide open. \nYou've been discovered, Santa Claus. Christmas is ruined, Nice job. \nGAME OVER!!!");
+      Item whistle = new Item("Whistle", "On the roof, again, with a full belly and your work here complete, \nyou blow the whistle and almost at once your sleigh and reindeer are here to carry you to your next stop. \nYou ride off into the night shouting 'Ho, Ho, Ho' and 'Merry Christmas to all' and other such jolly things. \nChristmas can continue... You WIN!!!");
 
       //room relationships
       rooftop.AddExit(Direction.south, livingRoom);
@@ -136,7 +139,7 @@ namespace Rooms.Project
 
     public void Help()//should be complete
     {
-      Console.WriteLine("Use GO with a direction to navigate the game.@/Use TAKE to add a usable item to your inventory.@/Use LOOK to get a description of your surroundings.@/Use INVENTORY to view your current inventory.@/Use USE to use an item from your inventory.@/Use RESET to start over.@/Use QUIT to stop playing the game.");
+      Console.WriteLine("Use GO with a direction to navigate the game.\nUse TAKE to add a usable item to your inventory.\nUse LOOK to get a description of your surroundings.\nUse INVENTORY to view your current inventory.\nUse USE to use an item from your inventory.\nUse RESET to start over.\nUse QUIT to stop playing the game.");
     }
 
     public void Reset()//should be complete
@@ -211,9 +214,10 @@ namespace Rooms.Project
       {
         System.Console.WriteLine("That item may not be used, here.");
       }
-      if (CurrentPlayer.Cookies && CurrentPlayer.Stockings)
+      if (CurrentPlayer.Cookies && CurrentPlayer.Stockings && !DisplayMessage)
       {
-        CurrentPlayer.Inventory.Add(new Item("Whistle", "On the roof, again, with a full belly and your work here complete, you blow the whistle and almost at once your sleigh and reindeer are here to carry you to your next stop. You ride off into the night shouting 'Ho, Ho, Ho' and 'Merry Christmas to all' and other such jolly things. Christmas can continue... You WIN!!!"));
+        DisplayMessage = true;
+        CurrentPlayer.Inventory.Add(new Item("Whistle", "On the roof, again, with a full belly and your work here complete, \nyou blow the whistle and almost at once your sleigh and reindeer are here to carry you to your next stop. \nYou ride off into the night shouting 'Ho, Ho, Ho' and 'Merry Christmas to all' and other such jolly things. \nChristmas can continue... You WIN!!!"));
         System.Console.WriteLine("Your full belly and good deeds remind you of a magic whistle in your back pocket. You may want to check your inventory...");
       }
     }
